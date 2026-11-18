@@ -9,7 +9,6 @@
     "dev": "node --watch server.js",
     "build": "node scripts/build.js",
     "preview": "npx --yes serve@14.2.4 dist --single -l 4000",
-    "deploy": "npm run build && npx --yes wrangler@4 pages deploy dist --project-name devops-path",
     "build:worker": "node scripts/build-worker.js",
     "deploy:worker": "npm run build:worker && npx --yes wrangler@4 deploy --config worker/wrangler.toml"
   },

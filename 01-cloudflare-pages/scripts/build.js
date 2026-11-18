@@ -74,4 +74,4 @@ let count = 0, bytes = 0;
   }
 })(DIST);
 console.log(`✓ built dist/ — ${count} files, ${(bytes / 1024).toFixed(0)} KB`);
-console.log("  Upload the dist folder to Cloudflare Pages, or run: npm run deploy");
+console.log("  Cloudflare Pages runs this build automatically on every git push to main.");

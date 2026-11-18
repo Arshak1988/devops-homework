@@ -4,8 +4,7 @@
 
 | | Link |
 |---|---|
-| Website (Cloudflare Pages, uploaded) | https://cf-pages-14y.pages.dev |
-| Website (Cloudflare Pages, auto-deployed from GitHub) | https://devops-homework.pages.dev |
+| Website (Cloudflare Pages, deployed from GitHub) | https://devops-homework.pages.dev |
 | API (Cloudflare Worker) | https://devops-path-api.arshakpaskevichyan.workers.dev |
 
 ![DevOpsPath home page](docs/screenshot-home.png)
@@ -43,7 +42,7 @@
 |   `-- hero-tsl.js          <- home page TSL shader background
 |-- data/topics.js           <- all course content
 |-- server.js                <- Node.js + Express server for local development
-|-- scripts/build.js         <- builds dist/ - the static site uploaded to Pages
+|-- scripts/build.js         <- builds dist/ - run by Cloudflare Pages on every push
 |-- scripts/build-worker.js  <- bundles code + content into worker/worker.js
 |-- worker/src/handler.js    <- the Worker's source code
 |-- worker/worker.js         <- the single file deployed to the Worker
@@ -59,7 +58,13 @@ npm start            # http://localhost:3000
 
 ## Deploy
 
-**Pages (automatic, from GitHub)** - every `git push` to `main` rebuilds https://devops-homework.pages.dev. Cloudflare Pages project settings:
+**Pages (from GitHub)** - the Cloudflare Pages project is connected to this repository, so every `git push` to `main` builds and deploys https://devops-homework.pages.dev automatically. Nothing is uploaded by hand.
+
+```
+git push  ->  GitHub  ->  Cloudflare Pages: npm ci, npm run build  ->  dist/ published to *.pages.dev
+```
+
+Cloudflare Pages project settings (*Workers & Pages -> Create -> Pages -> Import an existing Git repository*):
 
 | Setting | Value |
 |---|---|
@@ -69,9 +74,7 @@ npm start            # http://localhost:3000
 | Build command | `npm run build` |
 | Build output directory | `dist` |
 
-**Pages (manual upload)** - `npm run build`, then upload the `dist/` folder in *Workers & Pages -> Create -> Pages -> Upload assets* (or `npm run deploy`).
-
-> Upload `dist/`, not the project folder: the project folder contains `node_modules` (thousands of files, over the 1,000-file upload limit), and Pages can only host static files, not `server.js`.
+To check a build locally before pushing: `npm run build`, then look at `dist/`.
 
 **Worker** - `npm run build:worker`, then paste `worker/worker.js` into the Worker's *Edit code* editor and deploy (or `npm run deploy:worker`).
 

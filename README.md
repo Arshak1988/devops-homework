@@ -4,7 +4,7 @@ All my homework for the DevOps course, one folder per assignment.
 
 | # | Homework | Live links | Folder |
 |---|----------|-----------|--------|
-| 01 | Cloudflare Pages + Worker - DevOps course website & API | [Pages site](https://cf-pages-14y.pages.dev) / [Worker API](https://devops-path-api.arshakpaskevichyan.workers.dev) | [`01-cloudflare-pages`](01-cloudflare-pages/) |
+| 01 | Cloudflare Pages + Worker - DevOps course website & API | [Pages site](https://devops-homework.pages.dev) / [Worker API](https://devops-path-api.arshakpaskevichyan.workers.dev) | [`01-cloudflare-pages`](01-cloudflare-pages/) |
 | 02 | Virtualization - Ubuntu 24.04 in VirtualBox | - | _coming next_ |
 
 ---
@@ -13,8 +13,7 @@ All my homework for the DevOps course, one folder per assignment.
 
 | Item | Answer |
 |---|---|
-| **Pages link** | https://cf-pages-14y.pages.dev |
-| **Pages link (auto-deployed from this GitHub repo)** | https://devops-homework.pages.dev |
+| **Pages link** (deployed from this GitHub repo) | https://devops-homework.pages.dev |
 | **Worker link** | https://devops-path-api.arshakpaskevichyan.workers.dev |
 | **OS + CPU architecture** | **Windows, AMD64** (Windows 11 Home 64-bit, x64-based processor - Intel Core Ultra 7 155U) |
 | **Source code** | [`01-cloudflare-pages/`](01-cloudflare-pages/) |
@@ -28,7 +27,7 @@ More screenshots: [topic page](01-cloudflare-pages/docs/screenshot-topic.png) / 
 ### Checklist
 
 - [x] **1. Website** - HTML + CSS + JavaScript site for a DevOps course covering Ansible, SSH, Virtualization & VirtualBox, Installing Docker, CI/CD, AWS, Kubernetes, Terraform and Monitoring & Observability (Prometheus, Grafana, Loki, Alloy); JavaScript features include dark/light mode, expandable sections, routing, quizzes, a 3D journey and shader background built with Three.js WebGPU + TSL, and two games
-- [x] **2. Cloudflare Pages** - deployed via *Workers & Pages -> Create -> Pages -> Upload assets*; `*.pages.dev` link checked
+- [x] **2. Cloudflare Pages** - code pushed to GitHub, then deployed via *Workers & Pages -> Create -> Pages -> Import an existing Git repository* (root directory `01-cloudflare-pages`); every push to `main` redeploys automatically; `*.pages.dev` link checked
 - [x] **3. Cloudflare Worker** - created via *Workers & Pages -> Create -> Worker*, code replaced with the DevOpsPath API; `*.workers.dev` link checked
 - [x] **4. Ready for the virtualization lesson**
   - CPU architecture checked: **AMD64** (System type: *64-bit operating system, x64-based processor*)
