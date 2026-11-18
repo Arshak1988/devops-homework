@@ -1,0 +1,19 @@
+# dependencies & build output (recreated with npm install / npm run build)
+node_modules/
+dist/
+
+# secrets
+.env
+.env.*
+.dev.vars
+
+# Cloudflare / tooling caches
+.wrangler/
+
+# OS / editor junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.log

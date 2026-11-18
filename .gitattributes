@@ -1,0 +1,5 @@
+# Store text files with LF line endings in the repo (avoids Windows CRLF noise)
+* text=auto eol=lf
+*.iso binary
+*.png binary
+*.jpg binary
