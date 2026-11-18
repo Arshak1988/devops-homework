@@ -1,5 +1,5 @@
 /* =========================================================
-   DevOpsPath — Node.js + Express server
+   DevOpsPath - Node.js + Express server
    - Serves the website from /public
    - JSON API with the course content from /data/topics.js
    - Clean page URLs (/topics, /topic/docker, /progress)
@@ -33,7 +33,7 @@ app.use("/vendor/three/addons", express.static(path.join(THREE_DIR, "examples", 
 /* ---------------- API ---------------- */
 
 // Short list of all topics (for cards, roadmap, progress)
-// (".json" URLs are the same data — they match the static files `npm run build` creates for Cloudflare Pages)
+// (".json" URLs are the same data - they match the static files `npm run build` creates for Cloudflare Pages)
 app.get(["/api/topics", "/api/topics.json"], (req, res) => {
   res.json(topics.map(toSummary));
 });

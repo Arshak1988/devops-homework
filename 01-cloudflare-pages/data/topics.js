@@ -7,9 +7,9 @@ module.exports = [
   /* ------------------------------------------------------ SSH */
   {
     slug: "ssh",
-    title: "SSH — Secure Shell",
+    title: "SSH - Secure Shell",
     short: "SSH",
-    icon: "🔐",
+    icon: "lock",
     level: "Beginner",
     time: "2 h",
     tagline: "The encrypted front door to every Linux server you will ever manage.",
@@ -32,12 +32,12 @@ module.exports = [
       {
         h: "How a connection is established",
         html: `<ol class="steps-list">
-          <li><b>TCP handshake</b> — the client connects to port 22.</li>
-          <li><b>Version & algorithm negotiation</b> — both sides agree on ciphers and key-exchange methods.</li>
-          <li><b>Key exchange</b> (e.g. Curve25519) — a shared session key is created without ever being sent over the wire.</li>
-          <li><b>Host verification</b> — your client checks the server's host key against <code>known_hosts</code>.</li>
-          <li><b>User authentication</b> — the server challenges you to prove you own a private key matching an entry in <code>authorized_keys</code>.</li>
-          <li><b>Session</b> — everything from now on (shell, files, tunnels) is encrypted.</li>
+          <li><b>TCP handshake</b> - the client connects to port 22.</li>
+          <li><b>Version & algorithm negotiation</b> - both sides agree on ciphers and key-exchange methods.</li>
+          <li><b>Key exchange</b> (e.g. Curve25519) - a shared session key is created without ever being sent over the wire.</li>
+          <li><b>Host verification</b> - your client checks the server's host key against <code>known_hosts</code>.</li>
+          <li><b>User authentication</b> - the server challenges you to prove you own a private key matching an entry in <code>authorized_keys</code>.</li>
+          <li><b>Session</b> - everything from now on (shell, files, tunnels) is encrypted.</li>
         </ol>`,
       },
       {
@@ -50,7 +50,7 @@ module.exports = [
       },
       {
         h: "The ~/.ssh/config file",
-        html: `<p>Instead of typing long commands, give each server an alias. Then <code>ssh web</code> is all you need — and Ansible, scp and Git use the same settings.</p>`,
+        html: `<p>Instead of typing long commands, give each server an alias. Then <code>ssh web</code> is all you need - and Ansible, scp and Git use the same settings.</p>`,
         code: { lang: "~/.ssh/config", src: `Host web
     HostName 203.0.113.10
     User ubuntu
@@ -65,8 +65,8 @@ Host db
       {
         h: "Tunnels: local, remote and dynamic",
         html: `<table class="tbl"><thead><tr><th>Flag</th><th>Direction</th><th>Typical use</th></tr></thead><tbody>
-          <tr><td><code>-L</code></td><td>Local → remote</td><td>Open a remote database or Grafana on <code>localhost</code>.</td></tr>
-          <tr><td><code>-R</code></td><td>Remote → local</td><td>Show a server something running on your laptop.</td></tr>
+          <tr><td><code>-L</code></td><td>Local &rarr; remote</td><td>Open a remote database or Grafana on <code>localhost</code>.</td></tr>
+          <tr><td><code>-R</code></td><td>Remote &rarr; local</td><td>Show a server something running on your laptop.</td></tr>
           <tr><td><code>-D</code></td><td>Dynamic (SOCKS)</td><td>Browse through the server like a lightweight VPN.</td></tr>
         </tbody></table>`,
         code: { lang: "bash", src: `# PostgreSQL on the server becomes localhost:5432 on your laptop
@@ -81,7 +81,7 @@ ssh -L 3000:10.0.2.20:3000 web` },
       steps: [
         { t: "Generate an ed25519 key pair (press Enter to accept the path; set a passphrase).", code: `ssh-keygen -t ed25519 -C "student@laptop"` },
         { t: "Copy the public key to the server. You'll type the password one last time.", code: `ssh-copy-id ubuntu@192.168.56.10` },
-        { t: "Log in — no password needed now.", code: `ssh ubuntu@192.168.56.10` },
+        { t: "Log in - no password needed now.", code: `ssh ubuntu@192.168.56.10` },
         { t: "On the server, disable password and root login.", code: `sudo nano /etc/ssh/sshd_config
 # set these lines:
 PasswordAuthentication no
@@ -104,7 +104,7 @@ PermitRootLogin no` },
       "Disable password authentication and direct root login on servers.",
       "Use a bastion (jump) host instead of exposing every server's port 22.",
       "Use one key per device so you can revoke a lost laptop without affecting others.",
-      "Never commit private keys to Git — scan repos with tools like gitleaks.",
+      "Never commit private keys to Git - scan repos with tools like gitleaks.",
     ],
     quiz: [
       { q: "Which file on the server lists the public keys allowed to log in?", o: ["~/.ssh/known_hosts", "~/.ssh/authorized_keys", "/etc/ssh/ssh_config", "~/.ssh/id_ed25519"], a: 1, e: "authorized_keys holds allowed public keys. known_hosts lives on the client and stores server fingerprints." },
@@ -122,10 +122,10 @@ PermitRootLogin no` },
     slug: "virtualization",
     title: "Virtualization & VirtualBox",
     short: "Virtualization",
-    icon: "🖥️",
+    icon: "monitor",
     level: "Beginner",
     time: "3 h",
-    tagline: "Build a complete multi-server lab on your own laptop — and break it safely.",
+    tagline: "Build a complete multi-server lab on your own laptop - and break it safely.",
     intro:
       "Virtualization lets one physical computer run several isolated operating systems at once. It's the foundation of every cloud provider, and with VirtualBox you can build a realistic lab of Linux servers for free to practise SSH, Ansible, Docker and Kubernetes.",
     why: [
@@ -150,22 +150,22 @@ PermitRootLogin no` },
           <tr><td>Boot time</td><td>Tens of seconds</td><td>Milliseconds</td></tr>
           <tr><td>Use case</td><td>Different OSes, strong isolation</td><td>Packaging & shipping apps</td></tr>
         </tbody></table>
-        <p>They aren't rivals — in the cloud, containers usually run <i>inside</i> VMs.</p>`,
+        <p>They aren't rivals - in the cloud, containers usually run <i>inside</i> VMs.</p>`,
       },
       {
         h: "VirtualBox network modes",
-        html: `<table class="tbl"><thead><tr><th>Mode</th><th>VM → Internet</th><th>Host → VM</th><th>VM ↔ VM</th><th>Use it for</th></tr></thead><tbody>
-          <tr><td><b>NAT</b></td><td>✅</td><td>Port-forward only</td><td>❌</td><td>Default, simple internet access</td></tr>
-          <tr><td><b>NAT Network</b></td><td>✅</td><td>Port-forward only</td><td>✅</td><td>Several VMs that need internet</td></tr>
-          <tr><td><b>Bridged</b></td><td>✅</td><td>✅</td><td>✅</td><td>VM appears as a real device on your LAN</td></tr>
-          <tr><td><b>Host-only</b></td><td>❌</td><td>✅</td><td>✅</td><td>Private lab network (192.168.56.0/24)</td></tr>
-          <tr><td><b>Internal</b></td><td>❌</td><td>❌</td><td>✅</td><td>Isolated VM-only networks</td></tr>
+        html: `<table class="tbl"><thead><tr><th>Mode</th><th>VM &rarr; Internet</th><th>Host &rarr; VM</th><th>VM &lt;-&gt; VM</th><th>Use it for</th></tr></thead><tbody>
+          <tr><td><b>NAT</b></td><td class="good">Yes</td><td>Port-forward only</td><td class="bad">No</td><td>Default, simple internet access</td></tr>
+          <tr><td><b>NAT Network</b></td><td class="good">Yes</td><td>Port-forward only</td><td class="good">Yes</td><td>Several VMs that need internet</td></tr>
+          <tr><td><b>Bridged</b></td><td class="good">Yes</td><td class="good">Yes</td><td class="good">Yes</td><td>VM appears as a real device on your LAN</td></tr>
+          <tr><td><b>Host-only</b></td><td class="bad">No</td><td class="good">Yes</td><td class="good">Yes</td><td>Private lab network (192.168.56.0/24)</td></tr>
+          <tr><td><b>Internal</b></td><td class="bad">No</td><td class="bad">No</td><td class="good">Yes</td><td>Isolated VM-only networks</td></tr>
         </tbody></table>
-        <p class="tip">💡 Classic lab setup: <b>Adapter 1 = NAT</b> (internet) + <b>Adapter 2 = Host-only</b> (fixed IP you can SSH to).</p>`,
+        <p class="tip"><b>Tip:</b> Classic lab setup: <b>Adapter 1 = NAT</b> (internet) + <b>Adapter 2 = Host-only</b> (fixed IP you can SSH to).</p>`,
       },
       {
         h: "Automating VMs with Vagrant",
-        html: `<p>Clicking through the VirtualBox GUI is fine once. <b>Vagrant</b> describes VMs in a file so you can recreate a whole lab with one command — your first taste of Infrastructure as Code.</p>`,
+        html: `<p>Clicking through the VirtualBox GUI is fine once. <b>Vagrant</b> describes VMs in a file so you can recreate a whole lab with one command - your first taste of Infrastructure as Code.</p>`,
         code: { lang: "Vagrantfile", src: `Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/jammy64"
 
@@ -191,7 +191,7 @@ VBoxManage modifyvm lab --cpus 2 --memory 2048 --nic1 nat
 VBoxManage createmedium disk --filename lab.vdi --size 20480
 VBoxManage storagectl lab --name SATA --add sata
 VBoxManage storageattach lab --storagectl SATA --port 0 --type hdd --medium lab.vdi` },
-        { t: "Attach the ISO, boot, and install Ubuntu. Tick “Install OpenSSH server” during setup." },
+        { t: "Attach the ISO, boot, and install Ubuntu. Tick 'Install OpenSSH server' during setup." },
         { t: "Forward host port 2222 to the VM's port 22, then SSH in from your laptop.", code: `VBoxManage modifyvm lab --natpf1 "ssh,tcp,,2222,,22"
 ssh -p 2222 ubuntu@127.0.0.1` },
         { t: "Take a snapshot before experimenting.", code: `VBoxManage snapshot lab take clean-install` },
@@ -208,13 +208,13 @@ ssh -p 2222 ubuntu@127.0.0.1` },
     ],
     best: [
       "Give servers static IPs on a host-only network so your Ansible inventory never changes.",
-      "Use headless mode for servers — you'll manage them over SSH anyway.",
+      "Use headless mode for servers - you'll manage them over SSH anyway.",
       "Snapshot before every risky change; delete old snapshots to save disk space.",
-      "Keep lab VMs small (1–2 GB RAM) so you can run 3–4 at once.",
+      "Keep lab VMs small (1-2 GB RAM) so you can run 3-4 at once.",
     ],
     quiz: [
-      { q: "VirtualBox is which type of hypervisor?", o: ["Type 1", "Type 2", "Container runtime", "Firmware"], a: 1, e: "VirtualBox runs as an application on top of a host OS — that's Type 2." },
-      { q: "Which network mode gives host ↔ VM access but no internet?", o: ["NAT", "Bridged", "Host-only", "NAT Network"], a: 2, e: "Host-only creates a private network between host and VMs." },
+      { q: "VirtualBox is which type of hypervisor?", o: ["Type 1", "Type 2", "Container runtime", "Firmware"], a: 1, e: "VirtualBox runs as an application on top of a host OS - that's Type 2." },
+      { q: "Which network mode gives host &lt;-&gt; VM access but no internet?", o: ["NAT", "Bridged", "Host-only", "NAT Network"], a: 2, e: "Host-only creates a private network between host and VMs." },
       { q: "What's the main difference between a VM and a container?", o: ["Containers are always slower", "VMs share the host kernel", "Containers share the host kernel", "There is no difference"], a: 2, e: "Containers share the host's kernel; VMs run their own full OS." },
     ],
     links: [
@@ -226,26 +226,26 @@ ssh -p 2222 ubuntu@127.0.0.1` },
   /* ------------------------------------------------------ ANSIBLE */
   {
     slug: "ansible",
-    title: "Ansible — Configuration Management",
+    title: "Ansible - Configuration Management",
     short: "Ansible",
-    icon: "⚙️",
+    icon: "gear",
     level: "Intermediate",
     time: "5 h",
-    tagline: "Describe the desired state of 1 or 1,000 servers in YAML — Ansible makes it so.",
+    tagline: "Describe the desired state of 1 or 1,000 servers in YAML - Ansible makes it so.",
     intro:
-      "Ansible is an agentless automation tool. It connects to servers over SSH, runs small programs called modules, and brings each machine to the state you described in a playbook. Run it again and nothing changes unless something drifted — that's idempotency.",
+      "Ansible is an agentless automation tool. It connects to servers over SSH, runs small programs called modules, and brings each machine to the state you described in a playbook. Run it again and nothing changes unless something drifted - that's idempotency.",
     why: [
       "Manual server setup is slow, error-prone and impossible to repeat exactly.",
-      "No agent to install — if you can SSH to it, you can automate it.",
+      "No agent to install - if you can SSH to it, you can automate it.",
       "Playbooks are version-controlled documentation of how your servers are built.",
     ],
     concepts: [
       { t: "Control node", d: "The machine where Ansible is installed and from which you run playbooks (your laptop or a CI runner)." },
       { t: "Inventory", d: "A list of managed hosts, organised into groups like <code>[web]</code> and <code>[db]</code>." },
-      { t: "Module", d: "A unit of work: <code>apt</code>, <code>copy</code>, <code>service</code>, <code>user</code>, <code>template</code>… there are thousands." },
+      { t: "Module", d: "A unit of work: <code>apt</code>, <code>copy</code>, <code>service</code>, <code>user</code>, <code>template</code>... there are thousands." },
       { t: "Task & Playbook", d: "A <b>task</b> calls one module. A <b>playbook</b> is a YAML file of plays mapping host groups to tasks." },
       { t: "Idempotency", d: "Running the same playbook twice gives the same result. Tasks report <code>ok</code> when nothing needed to change." },
-      { t: "Handler", d: "A task that runs only when notified by a change — e.g. restart nginx only if its config changed." },
+      { t: "Handler", d: "A task that runs only when notified by a change - e.g. restart nginx only if its config changed." },
     ],
     sections: [
       {
@@ -300,11 +300,11 @@ ansible all -i inventory.ini -a "uptime"` },
         h: "Roles & Vault",
         html: `<p><b>Roles</b> package tasks, templates, files and defaults into a reusable folder structure (create one with <code>ansible-galaxy init nginx</code>). <b>Ansible Vault</b> encrypts secrets like passwords so they can live safely in Git.</p>`,
         code: { lang: "structure", src: `roles/nginx/
-├── defaults/main.yml   # default variables
-├── handlers/main.yml
-├── tasks/main.yml
-├── templates/
-└── files/
+|-- defaults/main.yml   # default variables
+|-- handlers/main.yml
+|-- tasks/main.yml
+|-- templates/
+\`-- files/
 
 # encrypt a secrets file
 ansible-vault encrypt group_vars/db/secrets.yml
@@ -320,12 +320,12 @@ ansible --version` },
         { t: "Create a template <code>index.html.j2</code>.", code: `<h1>{{ site_title }}</h1>
 <p>Served by {{ inventory_hostname }} ({{ ansible_default_ipv4.address }})</p>` },
         { t: "Run the playbook from the section above.", code: `ansible-playbook -i inventory.ini playbook.yml` },
-        { t: "Run it again — every task should say <code>ok</code> and <code>changed=0</code>. That's idempotency! Then open http://192.168.56.10 in your browser." },
+        { t: "Run it again - every task should say <code>ok</code> and <code>changed=0</code>. That's idempotency! Then open http://192.168.56.10 in your browser." },
       ],
     },
     cheats: [
       ["ansible all -m ping", "Test connectivity to all hosts"],
-      ["ansible-playbook site.yml --check", "Dry run — show what would change"],
+      ["ansible-playbook site.yml --check", "Dry run - show what would change"],
       ["ansible-playbook site.yml --diff", "Show file differences"],
       ["ansible-playbook site.yml -l web1", "Limit to specific hosts"],
       ["ansible-inventory --graph", "Visualise inventory groups"],
@@ -333,7 +333,7 @@ ansible --version` },
       ["ansible-galaxy init myrole", "Scaffold a new role"],
     ],
     best: [
-      "Always use modules instead of <code>shell</code>/<code>command</code> when possible — they're idempotent.",
+      "Always use modules instead of <code>shell</code>/<code>command</code> when possible - they're idempotent.",
       "Name every task clearly; the output becomes readable documentation.",
       "Run with <code>--check --diff</code> before applying to production.",
       "Keep secrets in Ansible Vault, never in plain text.",
@@ -341,7 +341,7 @@ ansible --version` },
     ],
     quiz: [
       { q: "What does Ansible need on the managed servers?", o: ["The Ansible agent", "SSH access and Python", "Docker", "A Kubernetes cluster"], a: 1, e: "Ansible is agentless: it connects over SSH and uses the server's Python." },
-      { q: "A task reports \"ok\" instead of \"changed\". What does that mean?", o: ["It failed silently", "The system was already in the desired state", "It was skipped", "The host is unreachable"], a: 1, e: "\"ok\" means nothing needed to change — idempotency in action." },
+      { q: "A task reports \"ok\" instead of \"changed\". What does that mean?", o: ["It failed silently", "The system was already in the desired state", "It was skipped", "The host is unreachable"], a: 1, e: "\"ok\" means nothing needed to change - idempotency in action." },
       { q: "When does a handler run?", o: ["At the start of every play", "Only when notified by a task that changed", "After every task", "Only in check mode"], a: 1, e: "Handlers run at the end of a play, and only if a task that notified them reported a change." },
     ],
     links: [
@@ -355,12 +355,12 @@ ansible --version` },
     slug: "docker",
     title: "Installing & Using Docker",
     short: "Docker",
-    icon: "🐳",
+    icon: "container",
     level: "Beginner",
     time: "5 h",
     tagline: "Package your app and everything it needs into one image that runs the same everywhere.",
     intro:
-      "Docker packages an application together with its libraries and runtime into an image. That image runs as a lightweight, isolated container on any machine with Docker — your laptop, a CI runner or a Kubernetes cluster. “It works on my machine” stops being a problem.",
+      "Docker packages an application together with its libraries and runtime into an image. That image runs as a lightweight, isolated container on any machine with Docker - your laptop, a CI runner or a Kubernetes cluster. 'It works on my machine' stops being a problem.",
     why: [
       "Identical environments from development through production.",
       "Containers start in milliseconds and use far less memory than VMs.",
@@ -371,13 +371,13 @@ ansible --version` },
       { t: "Container", d: "A running instance of an image, with its own process space, filesystem and network." },
       { t: "Dockerfile", d: "A recipe of instructions (<code>FROM</code>, <code>COPY</code>, <code>RUN</code>, <code>CMD</code>) used to build an image." },
       { t: "Registry", d: "Stores and distributes images: Docker Hub, GitHub Container Registry, AWS ECR." },
-      { t: "Volume", d: "Persistent storage that survives container restarts and removals — essential for databases." },
+      { t: "Volume", d: "Persistent storage that survives container restarts and removals - essential for databases." },
       { t: "Network", d: "Containers on the same user-defined network can reach each other by name." },
     ],
     sections: [
       {
         h: "How Docker works under the hood",
-        html: `<div class="flow-row"><span>docker CLI</span><i>→</i><span>dockerd (API)</span><i>→</i><span>containerd</span><i>→</i><span>runc</span><i>→</i><span>Linux kernel</span></div>
+        html: `<div class="flow-row"><span>docker CLI</span><i>&rarr;</i><span>dockerd (API)</span><i>&rarr;</i><span>containerd</span><i>&rarr;</i><span>runc</span><i>&rarr;</i><span>Linux kernel</span></div>
         <p>The CLI talks to the Docker daemon, which delegates to <b>containerd</b> and <b>runc</b>. Isolation comes from Linux kernel features: <b>namespaces</b> (what a process can see) and <b>cgroups</b> (how much CPU/RAM it can use).</p>`,
       },
       {
@@ -405,7 +405,7 @@ docker run --rm hello-world` },
       },
       {
         h: "Writing a good Dockerfile (multi-stage build)",
-        html: `<p>Multi-stage builds compile in one image and copy only the result into a small runtime image — smaller, faster and more secure.</p>`,
+        html: `<p>Multi-stage builds compile in one image and copy only the result into a small runtime image - smaller, faster and more secure.</p>`,
         code: { lang: "Dockerfile", src: `# ---- build stage ----
 FROM node:22-alpine AS build
 WORKDIR /app
@@ -490,7 +490,7 @@ docker rm -f web` },
     slug: "cicd",
     title: "CI/CD Pipelines",
     short: "CI/CD",
-    icon: "🔁",
+    icon: "loop",
     level: "Intermediate",
     time: "4 h",
     tagline: "Every git push automatically built, tested, scanned and shipped.",
@@ -499,14 +499,14 @@ docker rm -f web` },
     why: [
       "Bugs are caught minutes after they're written, not weeks later.",
       "Releases become a button click (or fully automatic) instead of a stressful event.",
-      "The pipeline is the single, repeatable path to production — no “I deployed from my laptop”.",
+      "The pipeline is the single, repeatable path to production - no 'I deployed from my laptop'.",
     ],
     concepts: [
       { t: "Continuous Integration", d: "Merge small changes often; each push triggers an automated build and test run." },
       { t: "Continuous Delivery", d: "Every passing build is <i>ready</i> to release; a human approves the production deploy." },
       { t: "Continuous Deployment", d: "Every passing build goes to production automatically, with no manual step." },
       { t: "Pipeline / Workflow", d: "The automated sequence of stages, defined as code in your repository." },
-      { t: "Runner / Agent", d: "The machine that executes pipeline jobs — hosted by the CI service or self-hosted." },
+      { t: "Runner / Agent", d: "The machine that executes pipeline jobs - hosted by the CI service or self-hosted." },
       { t: "Artifact", d: "A build output passed between jobs or stored: a binary, a test report, a Docker image." },
     ],
     sections: [
@@ -603,7 +603,7 @@ jobs:
       - run: ls -la
 EOF` },
         { t: "Commit and push, then open the <b>Actions</b> tab and watch the run live.", code: `git add . && git commit -m "Add CI" && git push` },
-        { t: "Break something on purpose (e.g. <code>run: exit 1</code>) and see the red ❌ — then fix it." },
+        { t: "Break something on purpose (e.g. <code>run: exit 1</code>) and see the run fail - then fix it." },
         { t: "Bonus: add a Dockerfile and the <code>docker</code> job from the example above to publish an image." },
       ],
     },
@@ -617,16 +617,16 @@ EOF` },
       ["actions/cache", "Cache dependencies between runs"],
     ],
     best: [
-      "Keep the pipeline fast (under ~10 minutes) — slow pipelines get ignored.",
+      "Keep the pipeline fast (under ~10 minutes) - slow pipelines get ignored.",
       "Never hard-code credentials; use the CI system's encrypted secrets or OIDC.",
       "Tag images with the commit SHA so every deployment is traceable.",
       "Build once, promote the same artifact through staging and production.",
       "Protect the main branch: require passing checks before merging.",
     ],
     quiz: [
-      { q: "Continuous Delivery vs Continuous Deployment — what's the difference?", o: ["They're identical", "Delivery needs a manual approval for prod; Deployment is fully automatic", "Deployment only runs tests", "Delivery doesn't use pipelines"], a: 1, e: "Delivery keeps every build releasable with a human gate; Deployment removes the gate." },
+      { q: "Continuous Delivery vs Continuous Deployment - what's the difference?", o: ["They're identical", "Delivery needs a manual approval for prod; Deployment is fully automatic", "Deployment only runs tests", "Delivery doesn't use pipelines"], a: 1, e: "Delivery keeps every build releasable with a human gate; Deployment removes the gate." },
       { q: "Which strategy sends a small percentage of users to the new version first?", o: ["Recreate", "Blue/Green", "Canary", "Rolling"], a: 2, e: "Canary releases expose a small slice of traffic before rolling out fully." },
-      { q: "Where should a database password used by the pipeline be stored?", o: ["In the workflow YAML", "In the README", "In the CI system's encrypted secrets", "In a commit message"], a: 2, e: "Use encrypted secrets (or OIDC) — never plain text in the repo." },
+      { q: "Where should a database password used by the pipeline be stored?", o: ["In the workflow YAML", "In the README", "In the CI system's encrypted secrets", "In a commit message"], a: 2, e: "Use encrypted secrets (or OIDC) - never plain text in the repo." },
     ],
     links: [
       ["GitHub Actions docs", "https://docs.github.com/actions"],
@@ -637,25 +637,25 @@ EOF` },
   /* ------------------------------------------------------ AWS */
   {
     slug: "aws",
-    title: "AWS — Amazon Web Services",
+    title: "AWS - Amazon Web Services",
     short: "AWS",
-    icon: "☁️",
+    icon: "cloud",
     level: "Intermediate",
     time: "6 h",
     tagline: "Rent servers, storage and networks by the second from the world's largest cloud.",
     intro:
       "AWS offers 200+ services, but a DevOps engineer uses a core set every day: IAM for access, VPC for networking, EC2 for servers, S3 for storage, RDS for databases and EKS/ECR for containers. Learn these well and the rest are variations on a theme.",
     why: [
-      "AWS is the most widely used cloud provider — it appears in most DevOps job descriptions.",
+      "AWS is the most widely used cloud provider - it appears in most DevOps job descriptions.",
       "Infrastructure is created by API calls, which makes it perfect for automation with Terraform.",
       "Pay-as-you-go pricing and the Free Tier let you practise for little or no cost.",
     ],
     concepts: [
       { t: "Region & AZ", d: "A <b>region</b> (e.g. <code>eu-central-1</code>) is a geographic area with several isolated data centres called <b>Availability Zones</b>." },
       { t: "IAM", d: "Identity & Access Management: users, groups, <b>roles</b> and JSON <b>policies</b> that control who can do what." },
-      { t: "EC2", d: "Elastic Compute Cloud — virtual servers (instances) in many sizes, launched from AMIs." },
+      { t: "EC2", d: "Elastic Compute Cloud - virtual servers (instances) in many sizes, launched from AMIs." },
       { t: "VPC", d: "Your private, isolated network in AWS, split into public and private subnets." },
-      { t: "S3", d: "Simple Storage Service — virtually unlimited object storage in “buckets”; also hosts static websites." },
+      { t: "S3", d: "Simple Storage Service - virtually unlimited object storage in 'buckets'; also hosts static websites." },
       { t: "Shared responsibility", d: "AWS secures the cloud (hardware, data centres); <i>you</i> secure what you put in it (OS, data, access)." },
     ],
     sections: [
@@ -675,7 +675,7 @@ EOF` },
       },
       {
         h: "Networking: VPC building blocks",
-        html: `<div class="flow-row"><span>Internet</span><i>→</i><span>Internet Gateway</span><i>→</i><span>Public subnet (ALB, bastion)</span><i>→</i><span>Private subnet (app, DB)</span><i>→</i><span>NAT Gateway → out</span></div>
+        html: `<div class="flow-row"><span>Internet</span><i>&rarr;</i><span>Internet Gateway</span><i>&rarr;</i><span>Public subnet (ALB, bastion)</span><i>&rarr;</i><span>Private subnet (app, DB)</span><i>&rarr;</i><span>NAT Gateway &rarr; out</span></div>
         <table class="tbl"><thead><tr><th></th><th>Security Group</th><th>Network ACL</th></tr></thead><tbody>
           <tr><td>Applies to</td><td>Instance / ENI</td><td>Whole subnet</td></tr>
           <tr><td>State</td><td>Stateful (return traffic auto-allowed)</td><td>Stateless (allow both directions)</td></tr>
@@ -699,7 +699,7 @@ EOF` },
           <li>Create an <b>AWS Budget</b> with an email alert (e.g. $5) on day one.</li>
           <li>Use Free Tier eligible sizes such as <code>t3.micro</code> / <code>t4g.micro</code> for labs.</li>
           <li><b>Stop or terminate</b> instances when you finish; delete unattached EBS volumes and Elastic IPs.</li>
-          <li>NAT Gateways and load balancers bill per hour even when idle — remove them after labs.</li>
+          <li>NAT Gateways and load balancers bill per hour even when idle - remove them after labs.</li>
         </ul>`,
       },
     ],
@@ -719,7 +719,7 @@ aws ec2 authorize-security-group-ingress --group-name web-sg --protocol tcp --po
         { t: "Get its public IP, SSH in and install nginx.", code: `aws ec2 describe-instances --filters Name=tag:Name,Values=course-web \\
   --query "Reservations[].Instances[].PublicIpAddress" --output text
 ssh -i course.pem ubuntu@PUBLIC_IP "sudo apt update && sudo apt install -y nginx"` },
-        { t: "Visit http://PUBLIC_IP — then <b>terminate</b> the instance so it stops billing.", code: `aws ec2 terminate-instances --instance-ids i-XXXXXXXX` },
+        { t: "Visit http://PUBLIC_IP - then <b>terminate</b> the instance so it stops billing.", code: `aws ec2 terminate-instances --instance-ids i-XXXXXXXX` },
       ],
     },
     cheats: [
@@ -740,7 +740,7 @@ ssh -i course.pem ubuntu@PUBLIC_IP "sudo apt update && sudo apt install -y nginx
     ],
     quiz: [
       { q: "How should an EC2 instance get permission to read from S3?", o: ["Store access keys in a file on the instance", "Attach an IAM role to the instance", "Use the root account keys", "Make the bucket public"], a: 1, e: "IAM roles provide temporary, automatically rotated credentials." },
-      { q: "Security Groups are…", o: ["Stateless, subnet-level", "Stateful, instance-level", "Only for S3", "Deny-only rules"], a: 1, e: "Security groups are stateful and attach to instances/network interfaces." },
+      { q: "Security Groups are...", o: ["Stateless, subnet-level", "Stateful, instance-level", "Only for S3", "Deny-only rules"], a: 1, e: "Security groups are stateful and attach to instances/network interfaces." },
       { q: "What is an Availability Zone?", o: ["A pricing tier", "One or more isolated data centres within a region", "A type of EC2 instance", "A DNS record"], a: 1, e: "Regions contain multiple AZs, each with independent power and networking." },
     ],
     links: [
@@ -753,14 +753,14 @@ ssh -i course.pem ubuntu@PUBLIC_IP "sudo apt update && sudo apt install -y nginx
   /* ------------------------------------------------------ TERRAFORM */
   {
     slug: "terraform",
-    title: "Terraform — Infrastructure as Code",
+    title: "Terraform - Infrastructure as Code",
     short: "Terraform",
-    icon: "🏗️",
+    icon: "blocks",
     level: "Intermediate",
     time: "5 h",
     tagline: "Write your cloud in code, review it in a pull request, create it with one command.",
     intro:
-      "Terraform lets you declare infrastructure — networks, servers, databases, DNS — in HashiCorp Configuration Language (HCL). It compares your code with the real world, shows a plan of exactly what will change, and then makes the changes through cloud provider APIs.",
+      "Terraform lets you declare infrastructure - networks, servers, databases, DNS - in HashiCorp Configuration Language (HCL). It compares your code with the real world, shows a plan of exactly what will change, and then makes the changes through cloud provider APIs.",
     why: [
       "Reproducible environments: dev, staging and prod built from the same code.",
       "Changes are reviewed in pull requests, just like application code.",
@@ -768,17 +768,17 @@ ssh -i course.pem ubuntu@PUBLIC_IP "sudo apt update && sudo apt install -y nginx
     ],
     concepts: [
       { t: "Provider", d: "A plugin that talks to an API, e.g. <code>hashicorp/aws</code>." },
-      { t: "Resource", d: "Something Terraform creates and manages: <code>aws_instance</code>, <code>aws_s3_bucket</code>…" },
+      { t: "Resource", d: "Something Terraform creates and manages: <code>aws_instance</code>, <code>aws_s3_bucket</code>..." },
       { t: "Data source", d: "Reads existing information, e.g. the latest Ubuntu AMI, without managing it." },
       { t: "Variable & Output", d: "<b>Variables</b> are inputs to your code; <b>outputs</b> expose values like an instance's IP." },
-      { t: "State", d: "<code>terraform.tfstate</code> maps your code to real resource IDs. Guard it carefully — it can contain secrets." },
+      { t: "State", d: "<code>terraform.tfstate</code> maps your code to real resource IDs. Guard it carefully - it can contain secrets." },
       { t: "Module", d: "A reusable folder of Terraform code, like a function for infrastructure." },
     ],
     sections: [
       {
         h: "The core workflow",
-        html: `<div class="flow-row"><span>write .tf</span><i>→</i><span>terraform init</span><i>→</i><span>terraform plan</span><i>→</i><span>terraform apply</span><i>→</i><span>terraform destroy</span></div>
-        <p><code>init</code> downloads providers, <code>plan</code> shows the diff (+ create, ~ update, − destroy), <code>apply</code> executes it, <code>destroy</code> removes everything.</p>`,
+        html: `<div class="flow-row"><span>write .tf</span><i>&rarr;</i><span>terraform init</span><i>&rarr;</i><span>terraform plan</span><i>&rarr;</i><span>terraform apply</span><i>&rarr;</i><span>terraform destroy</span></div>
+        <p><code>init</code> downloads providers, <code>plan</code> shows the diff (+ create, ~ update, - destroy), <code>apply</code> executes it, <code>destroy</code> removes everything.</p>`,
       },
       {
         h: "A complete example: web server on AWS",
@@ -913,12 +913,12 @@ terraform destroy -var="project=course"` },
     slug: "kubernetes",
     title: "Kubernetes",
     short: "Kubernetes",
-    icon: "☸️",
+    icon: "helm",
     level: "Advanced",
     time: "8 h",
-    tagline: "Tell the cluster what you want running — it schedules, heals and scales it for you.",
+    tagline: "Tell the cluster what you want running - it schedules, heals and scales it for you.",
     intro:
-      "Kubernetes (K8s) is a container orchestrator. You declare the desired state in YAML — “run 3 replicas of this image, reachable on port 80” — and Kubernetes continuously works to make reality match: restarting crashed containers, rescheduling on healthy nodes and rolling out updates without downtime.",
+      "Kubernetes (K8s) is a container orchestrator. You declare the desired state in YAML - 'run 3 replicas of this image, reachable on port 80' - and Kubernetes continuously works to make reality match: restarting crashed containers, rescheduling on healthy nodes and rolling out updates without downtime.",
     why: [
       "The industry standard for running containers in production on every major cloud (EKS, AKS, GKE).",
       "Self-healing, auto-scaling and zero-downtime rolling updates out of the box.",
@@ -937,15 +937,15 @@ terraform destroy -var="project=course"` },
         h: "Cluster architecture",
         html: `<div class="arch">
           <div class="arch-box"><h5>Control plane</h5><ul>
-            <li><b>kube-apiserver</b> — front door; every command goes through it</li>
-            <li><b>etcd</b> — key-value store holding all cluster state</li>
-            <li><b>kube-scheduler</b> — decides which node runs each pod</li>
-            <li><b>controller-manager</b> — loops that reconcile desired vs actual state</li>
+            <li><b>kube-apiserver</b> - front door; every command goes through it</li>
+            <li><b>etcd</b> - key-value store holding all cluster state</li>
+            <li><b>kube-scheduler</b> - decides which node runs each pod</li>
+            <li><b>controller-manager</b> - loops that reconcile desired vs actual state</li>
           </ul></div>
           <div class="arch-box"><h5>Worker node</h5><ul>
-            <li><b>kubelet</b> — agent that starts pods and reports health</li>
-            <li><b>kube-proxy</b> — implements Service networking rules</li>
-            <li><b>container runtime</b> — containerd / CRI-O runs the containers</li>
+            <li><b>kubelet</b> - agent that starts pods and reports health</li>
+            <li><b>kube-proxy</b> - implements Service networking rules</li>
+            <li><b>container runtime</b> - containerd / CRI-O runs the containers</li>
           </ul></div>
         </div>`,
       },
@@ -953,7 +953,7 @@ terraform destroy -var="project=course"` },
         h: "Service types",
         html: `<table class="tbl"><thead><tr><th>Type</th><th>Reachable from</th><th>Use case</th></tr></thead><tbody>
           <tr><td><b>ClusterIP</b></td><td>Inside the cluster only</td><td>Internal APIs, databases (default)</td></tr>
-          <tr><td><b>NodePort</b></td><td>Every node's IP on a port 30000–32767</td><td>Labs, simple exposure</td></tr>
+          <tr><td><b>NodePort</b></td><td>Every node's IP on a port 30000-32767</td><td>Labs, simple exposure</td></tr>
           <tr><td><b>LoadBalancer</b></td><td>A cloud load balancer's public IP</td><td>Exposing apps on EKS/AKS/GKE</td></tr>
         </tbody></table>`,
       },
@@ -1056,14 +1056,14 @@ kubectl rollout undo deployment/web` },
     slug: "monitoring",
     title: "Monitoring & Observability",
     short: "Monitoring",
-    icon: "📈",
+    icon: "chart",
     level: "Advanced",
     time: "6 h",
-    tagline: "Prometheus, Grafana, Loki and Alloy — see inside your systems before users notice problems.",
+    tagline: "Prometheus, Grafana, Loki and Alloy - see inside your systems before users notice problems.",
     intro:
       "Monitoring tells you <i>when</i> something is wrong; observability helps you understand <i>why</i>. You'll build the popular open-source Grafana stack: Alloy collects metrics and logs, Prometheus stores metrics, Loki stores logs, and Grafana turns it all into dashboards and alerts.",
     why: [
-      "You can't fix what you can't see — outages are found by alerts, not angry users.",
+      "You can't fix what you can't see - outages are found by alerts, not angry users.",
       "Metrics and logs prove whether a deploy made things better or worse.",
       "SLOs and dashboards give the whole team a shared picture of system health.",
     ],
@@ -1072,23 +1072,23 @@ kubectl rollout undo deployment/web` },
       { t: "Logs", d: "Timestamped text events from applications. Rich detail for debugging specific problems." },
       { t: "Traces", d: "Follow one request across many services to find where time is spent." },
       { t: "Labels", d: "Key-value pairs (<code>job=\"api\"</code>, <code>env=\"prod\"</code>) used to filter and group series and log streams." },
-      { t: "Golden signals", d: "Latency, Traffic, Errors and Saturation — the four things to watch for any service." },
+      { t: "Golden signals", d: "Latency, Traffic, Errors and Saturation - the four things to watch for any service." },
       { t: "SLI / SLO", d: "An indicator you measure (e.g. % successful requests) and the target you promise (e.g. 99.9%)." },
     ],
     sections: [
       {
         h: "How the stack fits together",
-        html: `<div class="flow-row"><span>Apps · Nodes · K8s</span><i>→</i><span>Alloy (collect)</span><i>→</i><span>Prometheus (metrics) · Loki (logs)</span><i>→</i><span>Grafana (visualise & alert)</span></div>
+        html: `<div class="flow-row"><span>Apps / Nodes / K8s</span><i>&rarr;</i><span>Alloy (collect)</span><i>&rarr;</i><span>Prometheus (metrics) / Loki (logs)</span><i>&rarr;</i><span>Grafana (visualise & alert)</span></div>
         <div class="obs-grid">
-          <div class="obs"><h4>🔥 Prometheus</h4><p>Time-series database that <b>pulls</b> (scrapes) metrics from <code>/metrics</code> endpoints. Query with <b>PromQL</b>; alert via Alertmanager.</p></div>
-          <div class="obs"><h4>📊 Grafana</h4><p>Dashboards and alerting for many data sources. Explore metrics and logs side by side.</p></div>
-          <div class="obs"><h4>🪵 Loki</h4><p>Log store that indexes only <b>labels</b>, not full text — cheap and fast. Query with <b>LogQL</b>.</p></div>
-          <div class="obs"><h4>🧲 Alloy</h4><p>Grafana's OpenTelemetry-compatible collector. Discovers targets, scrapes metrics, tails logs and forwards them.</p></div>
+          <div class="obs"><h4>Prometheus</h4><p>Time-series database that <b>pulls</b> (scrapes) metrics from <code>/metrics</code> endpoints. Query with <b>PromQL</b>; alert via Alertmanager.</p></div>
+          <div class="obs"><h4>Grafana</h4><p>Dashboards and alerting for many data sources. Explore metrics and logs side by side.</p></div>
+          <div class="obs"><h4>Loki</h4><p>Log store that indexes only <b>labels</b>, not full text - cheap and fast. Query with <b>LogQL</b>.</p></div>
+          <div class="obs"><h4>Alloy</h4><p>Grafana's OpenTelemetry-compatible collector. Discovers targets, scrapes metrics, tails logs and forwards them.</p></div>
         </div>`,
       },
       {
         h: "Prometheus: scraping & PromQL",
-        html: `<p>Prometheus reads a config listing what to scrape. <b>Exporters</b> translate systems into metrics — e.g. <code>node_exporter</code> for Linux hosts on port 9100.</p>`,
+        html: `<p>Prometheus reads a config listing what to scrape. <b>Exporters</b> translate systems into metrics - e.g. <code>node_exporter</code> for Linux hosts on port 9100.</p>`,
         code: { lang: "prometheus.yml", src: `global:
   scrape_interval: 15s
 
@@ -1128,7 +1128,7 @@ scrape_configs:
       },
       {
         h: "Loki & LogQL",
-        html: `<p>Select a log stream by labels, then filter and parse. Keep labels low-cardinality (app, env, namespace) — never user IDs or request IDs.</p>`,
+        html: `<p>Select a log stream by labels, then filter and parse. Keep labels low-cardinality (app, env, namespace) - never user IDs or request IDs.</p>`,
         code: { lang: "LogQL", src: `{app="web"}                                  # all logs from the web app
 {app="web"} |= "error"                       # lines containing "error"
 {app="web"} | json | status >= 500           # parse JSON, filter by field
@@ -1199,8 +1199,8 @@ loki.write "local" {
         { t: "Start everything and check the containers are healthy.", code: `docker compose up -d
 docker compose ps` },
         { t: "Open Prometheus at http://localhost:9090 and run the query <code>up</code>. Open the Alloy UI at http://localhost:12345 to see your component graph." },
-        { t: "Open Grafana at http://localhost:3000 (admin / admin). Add data sources: Prometheus → <code>http://prometheus:9090</code>, Loki → <code>http://loki:3100</code>." },
-        { t: "In <b>Explore</b>, query <code>{job=\"varlogs\"}</code> for logs; then import the “Node Exporter Full” dashboard (ID 1860) for host metrics." },
+        { t: "Open Grafana at http://localhost:3000 (admin / admin). Add data sources: Prometheus &rarr; <code>http://prometheus:9090</code>, Loki &rarr; <code>http://loki:3100</code>." },
+        { t: "In <b>Explore</b>, query <code>{job=\"varlogs\"}</code> for logs; then import the 'Node Exporter Full' dashboard (ID 1860) for host metrics." },
       ],
     },
     cheats: [

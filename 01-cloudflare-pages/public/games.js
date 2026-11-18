@@ -1,7 +1,7 @@
 /* =========================================================
-   /play — two small DevOps games
-   1. Pod Panic     — keep a cluster alive: restart crashed pods, patch memory leaks
-   2. Terminal Typer — type the right command before the clock runs out
+   /play - two small DevOps games
+   1. Pod Panic     - keep a cluster alive: restart crashed pods, patch memory leaks
+   2. Terminal Typer - type the right command before the clock runs out
    Each mount function returns a cleanup function.
    ========================================================= */
 
@@ -13,7 +13,7 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 const hash = () => Math.random().toString(16).slice(2, 7);
 
 /* =========================================================
-   GAME 1 — POD PANIC
+   GAME 1 - POD PANIC
    ========================================================= */
 export function mountPodPanic(root) {
   const PODS = 12;
@@ -32,8 +32,8 @@ export function mountPodPanic(root) {
     <div class="pp-grid" data-grid></div>
     <div class="game-overlay" data-overlay>
       <h3>Pod Panic</h3>
-      <p>Your cluster is under load. <b class="t-red">Crashed</b> pods burn your error budget — click them to restart.
-      <b class="t-amber">Leaking</b> pods get OOMKilled when memory hits 100% — click to patch them first.</p>
+      <p>Your cluster is under load. <b class="t-red">Crashed</b> pods burn your error budget - click them to restart.
+      <b class="t-amber">Leaking</b> pods get OOMKilled when memory hits 100% - click to patch them first.</p>
       <button class="btn btn-primary" data-start>kubectl run game</button>
     </div>`;
 
@@ -65,7 +65,7 @@ export function mountPodPanic(root) {
         ok: "Running",
         leak: `Mem ${Math.round(p.mem)}%`,
         crash: p.oom ? "OOMKilled" : "CrashLoopBackOff",
-        restarting: "Restarting…",
+        restarting: "Restarting...",
       }[p.state];
       b.innerHTML = `<span class="pod-name mono">${p.name}</span><span class="pod-status mono">${label}</span>
         <span class="pod-mem"><i style="width:${p.state === "crash" ? 0 : Math.round(p.mem)}%"></i></span>`;
@@ -144,8 +144,8 @@ export function mountPodPanic(root) {
     if (record) best.set(BEST_KEY, score);
     els.best.textContent = best.get(BEST_KEY);
     overlay.innerHTML = `
-      <h3>SLO breached 💥</h3>
-      <p class="mono">error budget exhausted after <b>${Math.floor(elapsed)}s</b><br/>score: <b>${score}</b>${record ? ' · <span class="t-amber">new record!</span>' : ""}</p>
+      <h3>SLO breached</h3>
+      <p class="mono">error budget exhausted after <b>${Math.floor(elapsed)}s</b><br/>score: <b>${score}</b>${record ? ' / <span class="t-amber">new record!</span>' : ""}</p>
       <button class="btn btn-primary" data-start>kubectl rollout restart</button>`;
     overlay.hidden = false;
   }
@@ -159,7 +159,7 @@ export function mountPodPanic(root) {
 }
 
 /* =========================================================
-   GAME 2 — TERMINAL TYPER
+   GAME 2 - TERMINAL TYPER
    ========================================================= */
 const TASKS = [
   { topic: "Docker", task: "List the running containers", a: ["docker ps", "docker container ls"] },
@@ -251,11 +251,11 @@ export function mountTyper(root) {
       correct++;
       const pts = 10 + Math.min(streak - 1, 5) * 2;
       score += pts;
-      feedback(`✓ correct +${pts}${streak > 1 ? ` · streak x${streak}` : ""}`, "ok");
+      feedback(`\u2713 correct +${pts}${streak > 1 ? ` / streak x${streak}` : ""}`, "ok");
       next();
     } else {
       streak = 0;
-      feedback(`✗ not quite — try again`, "bad");
+      feedback(`\u2717 not quite - try again`, "bad");
       el.form.classList.remove("shake");
       void el.form.offsetWidth;
       el.form.classList.add("shake");
@@ -306,8 +306,8 @@ export function mountTyper(root) {
     if (record) best.set(BEST_KEY, score);
     el.best.textContent = best.get(BEST_KEY);
     el.overlay.innerHTML = `
-      <h3>exit 0 — time's up</h3>
-      <p class="mono"><b>${correct}</b> commands correct · score <b>${score}</b>${record ? ' · <span class="t-amber">new record!</span>' : ""}</p>
+      <h3>exit 0 - time's up</h3>
+      <p class="mono"><b>${correct}</b> commands correct / score <b>${score}</b>${record ? ' / <span class="t-amber">new record!</span>' : ""}</p>
       <button class="btn btn-primary" data-start>./start.sh --again</button>`;
     el.overlay.hidden = false;
   }

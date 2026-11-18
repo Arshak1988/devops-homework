@@ -1,12 +1,12 @@
 /* =========================================================
-   DevOpsPath API — Cloudflare Worker
+   DevOpsPath API - Cloudflare Worker
    The course content served as JSON from Cloudflare's edge.
 
-   GET /                     → landing page listing the endpoints
-   GET /api/topics           → all topics (short)
-   GET /api/topics/:slug     → one topic (full)
-   GET /api/quiz/random      → a random quiz question
-   GET /api/health           → status + which Cloudflare data centre answered
+   GET /                     -> landing page listing the endpoints
+   GET /api/topics           -> all topics (short)
+   GET /api/topics/:slug     -> one topic (full)
+   GET /api/quiz/random      -> a random quiz question
+   GET /api/health           -> status + which Cloudflare data centre answered
 
    TOPICS and SUMMARIES are injected above this code by scripts/build-worker.js
    ========================================================= */
@@ -78,7 +78,7 @@ function landing(url, request) {
   ];
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DevOpsPath API · Cloudflare Worker</title>
+<title>DevOpsPath API / Cloudflare Worker</title>
 <style>
   :root { color-scheme: dark; }
   body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0c0f0a; color: #d9f2d0;

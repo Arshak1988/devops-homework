@@ -1,4 +1,4 @@
-# Cloudflare Worker config — used by: npm run deploy:worker
+# Cloudflare Worker config - used by: npm run deploy:worker
 name = "devops-path-api"
 main = "worker.js"
 compatibility_date = "2025-01-01"

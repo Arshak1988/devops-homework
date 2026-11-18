@@ -1,5 +1,5 @@
 /* =========================================================
-   npm run build  →  creates dist/ : a static copy of the site
+   npm run build  ->  creates dist/ : a static copy of the site
    for Cloudflare Pages (or any static host). No Node server needed.
 
    dist/
@@ -73,5 +73,5 @@ let count = 0, bytes = 0;
     else { count++; bytes += fs.statSync(p).size; }
   }
 })(DIST);
-console.log(`✓ built dist/ — ${count} files, ${(bytes / 1024).toFixed(0)} KB`);
+console.log(`\u2713 built dist/ - ${count} files, ${(bytes / 1024).toFixed(0)} KB`);
 console.log("  Cloudflare Pages runs this build automatically on every git push to main.");

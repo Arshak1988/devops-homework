@@ -1,5 +1,5 @@
 /* =========================================================
-   DevOpsPath — "Terminal Green" palette
+   DevOpsPath - "Terminal Green" palette
    Dark:  near-black olive + phosphor green + amber
    Light: warm paper + forest green + burnt amber
    ========================================================= */
@@ -415,14 +415,14 @@ a.progress-card:hover { border-color: var(--primary); }
   border: 1px solid var(--accent); background: var(--accent-soft); transition: all 0.2s;
 }
 .step-check input:checked + span { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); font-size: 0; }
-.step-check input:checked + span::after { content: "✓"; font-size: 1.1rem; }
+.step-check input:checked + span::after { content: "\2713"; font-size: 1.1rem; }
 .step-check input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 2px; }
 .lab-steps > li:has(input:checked) .step-body p { color: var(--muted); }
 
 /* best practices */
 .best { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .best li { position: relative; padding: 12px 16px 12px 44px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); }
-.best li::before { content: "✓"; position: absolute; left: 16px; top: 12px; color: var(--primary); font-weight: 800; }
+.best li::before { content: "\2713"; position: absolute; left: 16px; top: 12px; color: var(--primary); font-weight: 800; }
 
 /* quiz */
 .question { padding: 18px 20px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); margin-bottom: 12px; }
@@ -478,7 +478,7 @@ a.progress-card:hover { border-color: var(--primary); }
 .reveal.visible { opacity: 1; transform: none; }
 
 /* =========================================================
-   HOME — promo cards for the journey and the arcade
+   HOME - promo cards for the journey and the arcade
    ========================================================= */
 .promo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .promo {
@@ -608,7 +608,7 @@ kbd { font-family: "JetBrains Mono", monospace; font-size: 0.8em; padding: 1px 6
   cursor: pointer; padding: 12px 16px; font-weight: 600; list-style: none; display: flex; align-items: center; gap: 6px;
 }
 .howto summary::-webkit-details-marker { display: none; }
-.howto summary::before { content: "▸"; color: var(--primary); transition: transform 0.2s; }
+.howto summary::before { content: "\25B8"; color: var(--primary); transition: transform 0.2s; }
 .howto[open] summary::before { transform: rotate(90deg); }
 .howto summary .mono { color: var(--primary); }
 .howto > :not(summary) { margin: 0 16px 12px; }
@@ -728,3 +728,7 @@ kbd { font-family: "JetBrains Mono", monospace; font-size: 0.8em; padding: 1px 6
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Topic icons are SVG line icons (see ICONS in script.js) */
+.topic-icon .ico, .step-icon .ico, .pager-link .ico, .progress-list .ico, .feature .ico { color: var(--primary); }
+.step-icon .ico { width: 1.3rem; height: 1.3rem; }
