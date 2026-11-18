@@ -4,8 +4,15 @@
 
 | | Link |
 |---|---|
-| 🌐 Website (Cloudflare Pages) | https://cf-pages-14y.pages.dev |
+| 🌐 Website (Cloudflare Pages, uploaded) | https://cf-pages-14y.pages.dev |
+| 🔁 Website (Cloudflare Pages, auto-deployed from GitHub) | https://devops-homework.pages.dev |
 | ⚙️ API (Cloudflare Worker) | https://devops-path-api.arshakpaskevichyan.workers.dev |
+
+![DevOpsPath home page](docs/screenshot-home.png)
+
+| Topic page | 3D journey | Arcade |
+|---|---|---|
+| ![Kubernetes topic page](docs/screenshot-topic.png) | ![Three.js journey](docs/screenshot-journey.png) | ![Games](docs/screenshot-play.png) |
 
 ## Assignment
 
@@ -32,7 +39,8 @@
 ├── scripts/build.js     ← builds dist/ — the static site uploaded to Pages
 ├── worker/src/handler.js← the Worker's source code
 ├── scripts/build-worker.js ← bundles code + content into worker/worker.js
-└── worker/worker.js     ← the single file deployed to the Worker
+├── worker/worker.js     ← the single file deployed to the Worker
+└── docs/                ← screenshots
 ```
 
 ## Run locally
@@ -44,7 +52,17 @@ npm start            # http://localhost:3000
 
 ## Deploy
 
-**Pages** — `npm run build`, then upload the `dist/` folder in *Workers & Pages → Create → Pages → Upload assets* (or `npm run deploy`).
+**Pages (automatic, from GitHub)** — every `git push` to `main` rebuilds https://devops-homework.pages.dev. Cloudflare Pages project settings:
+
+| Setting | Value |
+|---|---|
+| Repository | `Arshak1988/devops-homework` |
+| Production branch | `main` |
+| Root directory | `01-cloudflare-pages` |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+
+**Pages (manual upload)** — `npm run build`, then upload the `dist/` folder in *Workers & Pages → Create → Pages → Upload assets* (or `npm run deploy`).
 
 > Upload `dist/`, not the project folder: the project folder contains `node_modules` (thousands of files, over the 1,000-file upload limit), and Pages can only host static files, not `server.js`.
 
