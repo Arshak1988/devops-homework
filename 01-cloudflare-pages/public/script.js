@@ -130,7 +130,7 @@ function viewHome() {
       <div class="promo-grid">
         <a href="/journey" class="promo promo-journey reveal">
           <div class="promo-art" aria-hidden="true">${Array.from({ length: 7 }, (_, i) => `<span style="--i:${i}"></span>`).join("")}</div>
-          <span class="kicker">// 3D · three.js</span>
+          <span class="kicker">// 3D · three.js WebGPU + TSL</span>
           <h3>Journey to the depths</h3>
           <p>Scroll down a 3D shaft and follow one app through all 12 steps — from <code>node server.js</code> on your laptop to live on the internet.</p>
           <span class="promo-cta mono">dive in →</span>
@@ -576,6 +576,11 @@ function initPage(name) {
 
   // Heavy pages load their code only when visited
   if ($("#journey")) mountModule("/journey.js", (m) => m.mount($("#journey")));
+  // Home hero: TSL shader background, loaded after the page has painted
+  if ($(".hero")) {
+    const t = setTimeout(() => { if ($(".hero")) mountModule("/hero-tsl.js", (m) => m.mount($(".hero"))); }, 300);
+    cleanup.push(() => clearTimeout(t));
+  }
   if ($("#podPanic")) mountModule("/games.js", (m) => {
     const a = m.mountPodPanic($("#podPanic"));
     const b = m.mountTyper($("#typer"));

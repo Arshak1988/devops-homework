@@ -3,17 +3,17 @@
    for Cloudflare Pages (or any static host). No Node server needed.
 
    dist/
-   ├── index.html, style.css, script.js, journey.js, games.js, favicon.svg
-   ├── vendor/three/three.module.min.js
-   └── api/topics.json + api/topics/<slug>.json   (what server.js would return)
-
-   ├── topics/index.html, journey/…, topic/docker/index.html …  (one per route)
-   └── 404.html
+   |-- index.html, style.css, script.js, journey.js, hero-tsl.js, games.js, favicon.svg
+   |-- vendor/three/build/   three.core.js, three.webgpu.js, three.tsl.js
+   |-- vendor/three/addons/  tsl/display/BloomNode.js
+   |-- api/topics.json + api/topics/<slug>.json   (what server.js would return)
+   |-- topics/index.html, journey/..., topic/docker/index.html ...  (one per route)
+   `-- 404.html
 
    Why a page per route? Cloudflare Pages only falls back to index.html when
    there is NO 404.html. Since we ship a 404.html (so unknown URLs get a real
    404 status), every valid URL needs its own file. They are all copies of
-   index.html — the router in script.js renders the right page from the URL.
+   index.html - the router in script.js renders the right page from the URL.
    ========================================================= */
 const fs = require("fs");
 const path = require("path");
@@ -28,14 +28,23 @@ fs.rmSync(DIST, { recursive: true, force: true });
 // 1. the website itself
 fs.cpSync(path.join(ROOT, "public"), DIST, { recursive: true });
 
-// 2. Three.js (only the one file the journey page imports)
-const threeSrc = path.join(ROOT, "node_modules", "three", "build", "three.module.min.js");
-if (!fs.existsSync(threeSrc)) {
-  console.error("✗ three.js not found — run `npm install` first.");
-  process.exit(1);
+// 2. Three.js WebGPU + TSL (only the files the import map in index.html needs)
+const THREE_DIR = path.join(ROOT, "node_modules", "three");
+const threeFiles = [
+  ["build/three.core.js", "vendor/three/build/three.core.js"],
+  ["build/three.webgpu.js", "vendor/three/build/three.webgpu.js"],
+  ["build/three.tsl.js", "vendor/three/build/three.tsl.js"],
+  ["examples/jsm/tsl/display/BloomNode.js", "vendor/three/addons/tsl/display/BloomNode.js"],
+];
+for (const [from, to] of threeFiles) {
+  const src = path.join(THREE_DIR, from);
+  if (!fs.existsSync(src)) {
+    console.error(`x ${from} not found - run "npm install" first.`);
+    process.exit(1);
+  }
+  fs.mkdirSync(path.dirname(path.join(DIST, to)), { recursive: true });
+  fs.copyFileSync(src, path.join(DIST, to));
 }
-fs.mkdirSync(path.join(DIST, "vendor", "three"), { recursive: true });
-fs.copyFileSync(threeSrc, path.join(DIST, "vendor", "three", "three.module.min.js"));
 
 // 3. the API as static JSON files
 fs.mkdirSync(path.join(DIST, "api", "topics"), { recursive: true });

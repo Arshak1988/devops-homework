@@ -24,7 +24,12 @@
 
 - **9 topic pages** - overview, key concepts, deep-dive sections, hands-on lab with tickable steps, cheat sheet, best practices, quiz and links to official docs
 - **Clean URL routing** (`/topics`, `/topic/docker`, `/progress`, ...) with Back/Forward support and a terminal-style 404 page
-- **3D journey** (`/journey`) - a scroll-driven [Three.js](https://threejs.org) dive through 12 stations, from `node server.js` on a laptop to live on the internet
+- **3D journey** (`/journey`) - a scroll-driven [Three.js](https://threejs.org) dive through 12 stations, from `node server.js` on a laptop to live on the internet, rendered with **WebGPU + [TSL](https://threejs.org/tsl/)** (Three.js Shading Language):
+  - hologram materials (fresnel rim + moving scanlines) and "data pulses" running along every wireframe line
+  - 8,000 particles simulated on the GPU by a TSL **compute shader** (3D noise drift)
+  - bloom + vignette post-processing built from TSL nodes (`RenderPipeline`, `pass()`, `bloom()`)
+  - falls back to WebGL 2 automatically; add `?webgl` to the URL to force it
+- **Home hero shader** - an animated tunnel background written as a TSL fragment shader, following the dark / light theme
 - **Arcade** (`/play`) - *Pod Panic* (keep a Kubernetes cluster alive) and *Terminal Typer* (type real DevOps commands against the clock)
 - Dark / light mode, search & level filters, progress tracking saved in the browser, copy buttons on code, quizzes with instant feedback
 - "Terminal Green" colour palette, responsive down to phone width
@@ -33,7 +38,9 @@
 
 ```
 01-cloudflare-pages/
-|-- public/                  <- the website (HTML, CSS, JS, Three.js journey, games)
+|-- public/                  <- the website (HTML, CSS, JS, games)
+|   |-- journey.js           <- 3D journey: Three.js WebGPU + TSL
+|   `-- hero-tsl.js          <- home page TSL shader background
 |-- data/topics.js           <- all course content
 |-- server.js                <- Node.js + Express server for local development
 |-- scripts/build.js         <- builds dist/ - the static site uploaded to Pages

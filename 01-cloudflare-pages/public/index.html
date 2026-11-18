@@ -10,6 +10,16 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="/style.css" />
+  <!-- Where the browser finds Three.js (WebGPU build + TSL) for journey.js and hero-tsl.js -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three/webgpu": "/vendor/three/build/three.webgpu.js",
+        "three/tsl": "/vendor/three/build/three.tsl.js",
+        "three/addons/": "/vendor/three/addons/"
+      }
+    }
+  </script>
   <script>
     // Apply saved theme before first paint (no flash)
     (function () {

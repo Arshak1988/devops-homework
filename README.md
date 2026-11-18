@@ -27,7 +27,7 @@ More screenshots: [topic page](01-cloudflare-pages/docs/screenshot-topic.png) / 
 
 ### Checklist
 
-- [x] **1. Website** - HTML + CSS + JavaScript site for a DevOps course covering Ansible, SSH, Virtualization & VirtualBox, Installing Docker, CI/CD, AWS, Kubernetes, Terraform and Monitoring & Observability (Prometheus, Grafana, Loki, Alloy); JavaScript features include dark/light mode, expandable sections, routing, quizzes, a Three.js 3D journey and two games
+- [x] **1. Website** - HTML + CSS + JavaScript site for a DevOps course covering Ansible, SSH, Virtualization & VirtualBox, Installing Docker, CI/CD, AWS, Kubernetes, Terraform and Monitoring & Observability (Prometheus, Grafana, Loki, Alloy); JavaScript features include dark/light mode, expandable sections, routing, quizzes, a 3D journey and shader background built with Three.js WebGPU + TSL, and two games
 - [x] **2. Cloudflare Pages** - deployed via *Workers & Pages -> Create -> Pages -> Upload assets*; `*.pages.dev` link checked
 - [x] **3. Cloudflare Worker** - created via *Workers & Pages -> Create -> Worker*, code replaced with the DevOpsPath API; `*.workers.dev` link checked
 - [x] **4. Ready for the virtualization lesson**

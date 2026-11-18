@@ -24,8 +24,11 @@ app.use((req, res, next) => {
 // Static files: style.css, script.js, ...
 app.use(express.static(PUBLIC_DIR, { index: false }));
 
-// Three.js from node_modules (used by public/journey.js) — no CDN needed
-app.use("/vendor/three", express.static(path.join(__dirname, "node_modules", "three", "build"), { maxAge: "7d" }));
+// Three.js from node_modules (WebGPU build + TSL + addons) - no CDN needed.
+// These paths match the import map in public/index.html.
+const THREE_DIR = path.join(__dirname, "node_modules", "three");
+app.use("/vendor/three/build", express.static(path.join(THREE_DIR, "build"), { maxAge: "7d" }));
+app.use("/vendor/three/addons", express.static(path.join(THREE_DIR, "examples", "jsm"), { maxAge: "7d" }));
 
 /* ---------------- API ---------------- */
 
