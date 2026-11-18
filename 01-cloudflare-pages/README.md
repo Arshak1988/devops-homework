@@ -1,12 +1,12 @@
-# 01 — Cloudflare Pages + Worker
+# 01 - Cloudflare Pages + Worker
 
-**DevOpsPath** — a website for a DevOps course, deployed to Cloudflare Pages, with a JSON API running as a Cloudflare Worker.
+**DevOpsPath** - a website for a DevOps course, deployed to Cloudflare Pages, with a JSON API running as a Cloudflare Worker.
 
 | | Link |
 |---|---|
-| 🌐 Website (Cloudflare Pages, uploaded) | https://cf-pages-14y.pages.dev |
-| 🔁 Website (Cloudflare Pages, auto-deployed from GitHub) | https://devops-homework.pages.dev |
-| ⚙️ API (Cloudflare Worker) | https://devops-path-api.arshakpaskevichyan.workers.dev |
+| Website (Cloudflare Pages, uploaded) | https://cf-pages-14y.pages.dev |
+| Website (Cloudflare Pages, auto-deployed from GitHub) | https://devops-homework.pages.dev |
+| API (Cloudflare Worker) | https://devops-path-api.arshakpaskevichyan.workers.dev |
 
 ![DevOpsPath home page](docs/screenshot-home.png)
 
@@ -22,10 +22,10 @@
 
 ## Features
 
-- **9 topic pages** — overview, key concepts, deep-dive sections, hands-on lab with tickable steps, cheat sheet, best practices, quiz and links to official docs
-- **Clean URL routing** (`/topics`, `/topic/docker`, `/progress`, …) with Back/Forward support and a terminal-style 404 page
-- **3D journey** (`/journey`) — a scroll-driven [Three.js](https://threejs.org) dive through 12 stations, from `node server.js` on a laptop to live on the internet
-- **Arcade** (`/play`) — *Pod Panic* (keep a Kubernetes cluster alive) and *Terminal Typer* (type real DevOps commands against the clock)
+- **9 topic pages** - overview, key concepts, deep-dive sections, hands-on lab with tickable steps, cheat sheet, best practices, quiz and links to official docs
+- **Clean URL routing** (`/topics`, `/topic/docker`, `/progress`, ...) with Back/Forward support and a terminal-style 404 page
+- **3D journey** (`/journey`) - a scroll-driven [Three.js](https://threejs.org) dive through 12 stations, from `node server.js` on a laptop to live on the internet
+- **Arcade** (`/play`) - *Pod Panic* (keep a Kubernetes cluster alive) and *Terminal Typer* (type real DevOps commands against the clock)
 - Dark / light mode, search & level filters, progress tracking saved in the browser, copy buttons on code, quizzes with instant feedback
 - "Terminal Green" colour palette, responsive down to phone width
 
@@ -33,14 +33,14 @@
 
 ```
 01-cloudflare-pages/
-├── public/              ← the website (HTML, CSS, JS, Three.js journey, games)
-├── data/topics.js       ← all course content
-├── server.js            ← Node.js + Express server for local development
-├── scripts/build.js     ← builds dist/ — the static site uploaded to Pages
-├── worker/src/handler.js← the Worker's source code
-├── scripts/build-worker.js ← bundles code + content into worker/worker.js
-├── worker/worker.js     ← the single file deployed to the Worker
-└── docs/                ← screenshots
+|-- public/                  <- the website (HTML, CSS, JS, Three.js journey, games)
+|-- data/topics.js           <- all course content
+|-- server.js                <- Node.js + Express server for local development
+|-- scripts/build.js         <- builds dist/ - the static site uploaded to Pages
+|-- scripts/build-worker.js  <- bundles code + content into worker/worker.js
+|-- worker/src/handler.js    <- the Worker's source code
+|-- worker/worker.js         <- the single file deployed to the Worker
+`-- docs/                    <- screenshots
 ```
 
 ## Run locally
@@ -52,7 +52,7 @@ npm start            # http://localhost:3000
 
 ## Deploy
 
-**Pages (automatic, from GitHub)** — every `git push` to `main` rebuilds https://devops-homework.pages.dev. Cloudflare Pages project settings:
+**Pages (automatic, from GitHub)** - every `git push` to `main` rebuilds https://devops-homework.pages.dev. Cloudflare Pages project settings:
 
 | Setting | Value |
 |---|---|
@@ -62,11 +62,11 @@ npm start            # http://localhost:3000
 | Build command | `npm run build` |
 | Build output directory | `dist` |
 
-**Pages (manual upload)** — `npm run build`, then upload the `dist/` folder in *Workers & Pages → Create → Pages → Upload assets* (or `npm run deploy`).
+**Pages (manual upload)** - `npm run build`, then upload the `dist/` folder in *Workers & Pages -> Create -> Pages -> Upload assets* (or `npm run deploy`).
 
 > Upload `dist/`, not the project folder: the project folder contains `node_modules` (thousands of files, over the 1,000-file upload limit), and Pages can only host static files, not `server.js`.
 
-**Worker** — `npm run build:worker`, then paste `worker/worker.js` into the Worker's *Edit code* editor and deploy (or `npm run deploy:worker`).
+**Worker** - `npm run build:worker`, then paste `worker/worker.js` into the Worker's *Edit code* editor and deploy (or `npm run deploy:worker`).
 
 ## Worker API
 
